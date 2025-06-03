@@ -124,6 +124,11 @@
     word-wrap: break-word;
 }
 
+#tasklist li.completed span {
+    color: #fff;
+    text-decoration: 2px line-through #f38926;
+}
+
 #tasklist li hover {
     box-shadow: 0, 0, 10px rgba(0,0,0,0.1);
 }
@@ -187,4 +192,23 @@
 
 .task-btn .edit-btn {
     background: #f38926;
+}
+
+.stat-container {
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.18);
+    gap: 20x;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.details {
+    width: 100%;
+}
+
+.details H3 {
+    color: #fff;
 }
