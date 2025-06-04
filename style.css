@@ -23,7 +23,8 @@
     left: 50%;
     transform: translate(-50%,-50%);
     width: 350px;
-    height: 350px;
+    min-height: 350px;
+    height: auto;
     text-align: center;
     border: 1px solid rgb(30, 36, 33);
     border-radius: 12px;
@@ -31,6 +32,12 @@
     background:  linear-gradient(135deg, rgb(153, 0, 255), lightblue);
     box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.5);
 
+}
+
+.change-color {
+    color: #f38926;
+    font-weight: bold;
+    margin-left: 4px;
 }
 
 .todo-app h1 {
@@ -52,6 +59,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 20px;
 }
 
 .input-area input {
@@ -212,3 +220,34 @@
 .details H3 {
     color: #fff;
 }
+
+.progressbar {
+    width: 100%;
+    height: 7px;
+    background: rgba(255, 194, 209, 0.3);
+    border-radius: 20px;
+    position: relative;
+    margin-top : 15x;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background: #049e84;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+}
+
+#numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: #f38926;
+    border: 2px solid rgba(255, 194, 209, 0.3);
+    font-weight: bold;
+    border-radius: 50%;
+    font-size: 1.5rem;
+}
+
