@@ -22,8 +22,21 @@ document.addEventListener('DOMContentLoaded', () =>{
     if ( checkCompletion && TotalTask > 0 && CompletedTask === TotalTask) {
         Confetti();
     }
-};
+    };
+    const saveTaskToLocalstorage = () => {
+       const task = Array.from(taskList.querySelectorAll('li')).map(li => ({
+        text: li.querySelector('span').textContent,
+        completed: li.querySelector('.checkbox').checked
+       }));
+       localStorage.setItem('task', JSON.stringify(task));
+    };
 
+    const LoadlocalToProgress = () => {
+        const savedTask = JSON.parse(localStorage.getItem('task')) || [];
+        savedTask.forEach(({ text,completed }) => addTask(text,completed,false));
+        toggleEmptyState();
+        updateProgress();
+    };
     const addTask = (text , completed = false, checkCompletion = true) => {
         
         const taskText = text || taskInput.value.trim();
@@ -33,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
         const li = document.createElement ('li');
         li.innerHTML = `
-        <input type="checkbox" class="checkbox">${completed ? 'checked' : ''}
+        <input type="checkbox" class="checkbox"${completed ? ' checked' : ''}>
         <span>${taskText}</span>
         <div class= 'task-btn'>
         <button class = "edit-btn">
@@ -59,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () =>{
             editbtn.style.opacity = isChecked ?  '0.5' : '1';
             editbtn.style.pointerEvents = isChecked ? 'none' : 'auto';
             updateProgress();
+            saveTaskToLocalstorage();
         });
 
         editbtn.addEventListener('click', () => {
@@ -67,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () =>{
                 li.remove();
                 toggleEmptyState();
                 updateProgress(false);
+                saveTaskToLocalstorage();
             }
         });
         
@@ -74,18 +89,23 @@ document.addEventListener('DOMContentLoaded', () =>{
             li.remove();
             toggleEmptyState();
             updateProgress();
+            saveTaskToLocalstorage();
         });
 
         
         taskList.appendChild(li);
         taskInput.value = "";
         toggleEmptyState();
-        updateProgress(checkCompletion);
+        if (checkCompletion) {
+            updateProgress();
+            saveTaskToLocalstorage();
+        }
     };
      form.addEventListener('submit', (e) => {
     e.preventDefault();
       addTask();
     });
+    LoadlocalToProgress();
 });
 
 const Confetti = () => {
